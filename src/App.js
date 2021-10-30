@@ -8,80 +8,68 @@ import About from './components/About'
 
 const App = () => {
     const [showAddTask, setShowAddTask] = useState(false)
-    const [tasks, setTasks] = useState([])
-
-    useEffect(() => {
-      const getTasks = async () => {
-        const tasksFromServer = await fetchTasks()
-        setTasks(tasksFromServer)
+    const [tasks, setTasks] = useState([
+      {
+        "id": 1,
+        "text": "Emma Birthday",
+        "day": "Oct 12th at 7:00am",
+        "reminder": true
+      },
+      {
+        "id": 3,
+        "text": "Football Practise",
+        "day": "Mar 19th at 6:00pm",
+        "reminder": true
+      },
+      {
+        "text": "Dentist Appoinment2",
+        "day": "Feb 21st at 7:30am",
+        "reminder": true,
+        "id": 4
       }
+    ])
 
-      getTasks()
-    }, [])
 
-    // Fetch Tasks
-    const fetchTasks = async () => {
-      const res = await fetch('http://localhost:5000/tasks')
-      const data = await res.json()
+    // Fetch Task
+    const fetchTask = (tasks) => {
+      // use any of javascript array search methods to filter the array by id: indexOf, sort, find, filter, search, includes etc.
+    
+     return tasks
 
-      return data
     }
 
-        // Fetch Task
-        const fetchTask = async (id) => {
-          const res = await fetch(`http://localhost:5000/tasks/${id}`)
-          const data = await res.json()
-    
-          return data
-        }
-
     // Add Task
-    const addTask = async (task) => {
-      const res = await fetch('http://localhost:5000/tasks', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify(task)
-      })
-
-      const data = await res.json()
-
-      setTasks([...tasks, data])
-
-      // const id = Math.floor(Math.random() * 10000) + 1
-      // const newTask = { id, ...task }
-      // setTasks([...tasks, newTask])
+    const addTask = (task) => {
+       // use any of javascript array addition methods to add tasks to array: unshift and push
+       const id = Math.floor(Math.random() * 100) + 1
+       const newTask = { id, ...task }
+       setTasks([...tasks, newTask]) 
+      
     }
 
     // Delete Task
     const deleteTask = async (id) => {
-      await fetch(`http://localhost:5000/tasks/${id}`, {
-        method: 'DELETE'
-      })
-
+      // Use any of the javascript direct or indirect delete methods: pop, shift, delete
       setTasks(tasks.filter((task) => task.id !== id))
+      tasks.pop()
+
+
     }
 
     // Toggle Reminder
-    const toggleReminder = async (id) => {
-      const taskToToggle = await fetchTask(id)
-      const updTask = {...taskToToggle, reminder: !taskToToggle.reminder}
+    // const toggleReminder = async (id) => {
+    //   const taskToToggle = await fetchTask(id)
+    //   const updTask = {...taskToToggle, reminder: !taskToToggle.reminder}
 
-      const res = await fetch(`http://localhost:5000/tasks/${id}`, {
-        method:'PUT',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify(updTask)
-      })
-
-      const data = await res.json()
-
-      setTasks
-      (tasks.map((task) => task.id === id ? { ...task, reminder: data.reminder } : task))
-    }
-
+     const toggleReminder = (id) => {
+      setTasks(
+        tasks.map((task) => task.id === id ? { ...task, reminder: !task.reminder } : task
+        )
+      )
+}
+      
+        // use any of javascript array search methods to filter the array by id: indexOf, sort, find, filter, search, includes, map, access array element by index etc. to manipulate element data 
+  
   return (
     <Router>
     <div className="container">
