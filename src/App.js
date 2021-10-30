@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Tasks from './components/Tasks'
@@ -30,13 +30,13 @@ const App = () => {
     ])
 
 
-    // Fetch Task
-    const fetchTask = (tasks) => {
-      // use any of javascript array search methods to filter the array by id: indexOf, sort, find, filter, search, includes etc.
+    // // Fetch Task
+    // const fetchTask = (tasks) => {
+    //   // use any of javascript array search methods to filter the array by id: indexOf, sort, find, filter, search, includes etc.
     
-     return tasks
+    //  return tasks
 
-    }
+    // }
 
     // Add Task
     const addTask = (task) => {
